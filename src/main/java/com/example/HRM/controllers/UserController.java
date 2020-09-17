@@ -1,9 +1,9 @@
 package com.example.HRM.controllers;
 
-import com.example.HRM.models.User;
+import com.example.HRM.entity.UseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.example.HRM.repositories.UserRepository;
+import com.example.HRM.repositories.Users.UserRepository;
 
 import java.util.Optional;
 
@@ -15,12 +15,12 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping
-    Iterable<User> get(){
+    Iterable<UseEntity> get(){
         return userRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    Optional<User> get(@PathVariable int id){
+    Optional<UseEntity> get(@PathVariable int id){
         return userRepository.findById(id);
     }
 
@@ -30,18 +30,17 @@ public class UserController {
     }
 
     @PostMapping()
-    void post(@RequestBody User user){
-        user.setId(0);
+    void post(@RequestBody UseEntity user){
         userRepository.save(user);
     }
 
     @PutMapping
-    void put(@RequestBody User user){
+    void put(@RequestBody UseEntity user){
        userRepository.save(user);
     }
 
-    @GetMapping("/find")
-    Iterable<User> find(@PathVariable String pattern){
-        return userRepository.findByNameContaining(pattern);
-    }
+//    @GetMapping("/find")
+//    Iterable<User> find(@PathVariable String pattern){
+//        return userRepository.findByName(pattern);
+//    }
 }
