@@ -1,7 +1,7 @@
 package com.example.HRM.configurations;
 
 import com.example.HRM.entity.RoleEntity;
-import com.example.HRM.entity.UseEntity;
+import com.example.HRM.entity.UserEntity;
 import com.example.HRM.repositories.Roles.RoleRepository;
 import com.example.HRM.repositories.Users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 @Component
 @Configuration
@@ -24,19 +24,21 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
     private RoleRepository roleRepository;
 
     private void addRoleIfMissing(String name) {
-        if (roleRepository.findByName(name)==null) {
+        if (!roleRepository.findByName(name).isPresent()) {
             roleRepository.save(RoleEntity.builder().name(name).description("description").build());
         }
     }
 
-    private void addUserIfMissing(String username, String password, String... roles){
+    private void addUserIfMissing(String username, String password, String... roles) {
         if (userRepository.findByUsername(username) == null) {
-            UseEntity user = new UseEntity(username, "default@password", "Last name", new BCryptPasswordEncoder().encode(password));
+            UserEntity user = new UserEntity(username, "default@password", "Last name", new BCryptPasswordEncoder().encode(password));
 
-            user.setRoleEntities(new HashSet<>());
+            user.setRoleEntities(new ArrayList<>());
 
-            for (String role: roles) {
-                user.getRoleEntities().add(roleRepository.findByName(role));
+            for (String role : roles) {
+                if (roleRepository.findByName(role).isPresent()) {
+                    user.getRoleEntities().add(roleRepository.findByName(role).get());
+                }
             }
 
             userRepository.save(user);

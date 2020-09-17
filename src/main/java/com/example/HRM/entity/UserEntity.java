@@ -8,13 +8,14 @@ import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Data
 @Entity(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-public class UseEntity {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -56,9 +57,9 @@ public class UseEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<RoleEntity> roleEntities;
+    private List<RoleEntity> roleEntities;
 
-    public UseEntity(String email, String password, String firstName, String lastName) {
+    public UserEntity(String email, String password, String firstName, String lastName) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
