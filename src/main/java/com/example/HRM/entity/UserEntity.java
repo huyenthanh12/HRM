@@ -8,6 +8,7 @@ import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -56,7 +57,7 @@ public class UserEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<RoleEntity> roleEntities;
+    private List<RoleEntity> roleEntities;
 
     public UserEntity(String email, String password, String firstName, String lastName) {
         this.email = email;
