@@ -1,6 +1,6 @@
 package com.example.HRM.controllers;
 
-import com.example.HRM.entity.UseEntity;
+import com.example.HRM.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.HRM.repositories.Users.UserRepository;
@@ -15,12 +15,12 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping
-    Iterable<UseEntity> get(){
+    Iterable<UserEntity> get(){
         return userRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    Optional<UseEntity> get(@PathVariable int id){
+    Optional<UserEntity> get(@PathVariable int id){
         return userRepository.findById(id);
     }
 
@@ -30,12 +30,12 @@ public class UserController {
     }
 
     @PostMapping()
-    void post(@RequestBody UseEntity user){
+    void post(@RequestBody UserEntity user){
         userRepository.save(user);
     }
 
     @PutMapping
-    void put(@RequestBody UseEntity user){
+    void put(@RequestBody UserEntity user){
        userRepository.save(user);
     }
 

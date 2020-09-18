@@ -14,7 +14,7 @@ import java.util.Set;
 @Entity(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-public class UseEntity {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,7 +58,7 @@ public class UseEntity {
     )
     private Set<RoleEntity> roleEntities;
 
-    public UseEntity(String email, String password, String firstName, String lastName) {
+    public UserEntity(String email, String password, String firstName, String lastName) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;

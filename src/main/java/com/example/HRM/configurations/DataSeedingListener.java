@@ -1,7 +1,7 @@
 package com.example.HRM.configurations;
 
 import com.example.HRM.entity.RoleEntity;
-import com.example.HRM.entity.UseEntity;
+import com.example.HRM.entity.UserEntity;
 import com.example.HRM.repositories.Roles.RoleRepository;
 import com.example.HRM.repositories.Users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
     private void addUserIfMissing(String username, String password, String... roles){
         if (userRepository.findByUsername(username) == null) {
-            UseEntity user = new UseEntity(username, "default@password", "Last name", new BCryptPasswordEncoder().encode(password));
+            UserEntity user = new UserEntity(username, "default@password", "Last name", new BCryptPasswordEncoder().encode(password));
 
             user.setRoleEntities(new HashSet<>());
 
